@@ -1,6 +1,6 @@
-package com.springboot.kontorva.model;
+package com.example.salesmanagementsystem.model;
 
-import com.springboot.kontorva.enums.Role;
+import com.example.salesmanagementsystem.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -35,8 +35,6 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Post> posts;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp

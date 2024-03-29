@@ -1,6 +1,6 @@
-package com.springboot.kontorva.dto;
+package com.example.salesmanagementsystem.dto;
 
-import com.springboot.kontorva.enums.Role;
+import com.example.salesmanagementsystem.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;

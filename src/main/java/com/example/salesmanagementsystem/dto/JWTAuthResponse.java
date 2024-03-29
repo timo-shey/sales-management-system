@@ -1,4 +1,4 @@
-package com.springboot.kontorva.dto;
+package com.example.salesmanagementsystem.dto;
 
 import lombok.Builder;
 import lombok.Data;

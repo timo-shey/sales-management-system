@@ -1,4 +1,4 @@
-package com.springboot.kontorva.enums;
+package com.example.salesmanagementsystem.enums;
 
 public enum Role {
     ROLE_USER,

@@ -1,4 +1,4 @@
-package com.springboot.kontorva.dto;
+package com.example.salesmanagementsystem.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
