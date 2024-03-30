@@ -4,9 +4,9 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class LoginDto {
-    @NotEmpty
+public class LoginDTO {
+    @NotEmpty(message = "Username may not be empty")
     private String username;
-    @NotEmpty
+    @NotEmpty(message = "Password may not be empty")
     private String password;
 }

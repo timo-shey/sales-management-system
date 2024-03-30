@@ -1,10 +1,10 @@
 package com.example.salesmanagementsystem.controller;
 
 import com.example.salesmanagementsystem.dto.JWTAuthResponse;
-import com.example.salesmanagementsystem.dto.LoginDto;
+import com.example.salesmanagementsystem.dto.LoginDTO;
 import com.example.salesmanagementsystem.dto.RefreshTokenRequestDto;
-import com.example.salesmanagementsystem.dto.RegisterDto;
-import com.example.salesmanagementsystem.service.AuthService;
+import com.example.salesmanagementsystem.dto.RegisterDTO;
+import com.example.salesmanagementsystem.service.UserService;
 import com.example.salesmanagementsystem.service.RefreshTokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,21 +24,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthService authService;
+    private final UserService userService;
     private final RefreshTokenService refreshTokenService;
 
     @Operation(summary = "REST API to Signup User on the application.", tags = "AuthController")
     @ApiResponse(responseCode = "201", description = "Http Status 201 CREATED")
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody RegisterDto registerDto) {
-        return new ResponseEntity<>(authService.registerUser(registerDto), HttpStatus.CREATED);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody RegisterDTO registerDto) {
+        return new ResponseEntity<>(userService.registerUser(registerDto), HttpStatus.CREATED);
     }
 
     @Operation(summary = "REST API to Login User to the application.", tags = "AuthController")
     @ApiResponse(responseCode = "200", description = "Http Status 200 SUCCESS")
     @PostMapping("/login")
-    public ResponseEntity<JWTAuthResponse> loginUser(@Valid @RequestBody LoginDto loginDto) {
-        return ResponseEntity.ok(authService.LoginUser(loginDto));
+    public ResponseEntity<JWTAuthResponse> loginUser(@Valid @RequestBody LoginDTO loginDto) {
+        return ResponseEntity.ok(userService.LoginUser(loginDto));
     }
 
     @Operation(summary = "REST API to get a refresh token for User to refresh their access token.", tags = "AuthController")

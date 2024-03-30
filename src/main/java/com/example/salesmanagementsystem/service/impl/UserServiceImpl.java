@@ -1,15 +1,16 @@
 package com.example.salesmanagementsystem.service.impl;
 
 import com.example.salesmanagementsystem.dto.JWTAuthResponse;
-import com.example.salesmanagementsystem.dto.LoginDto;
-import com.example.salesmanagementsystem.dto.RegisterDto;
+import com.example.salesmanagementsystem.dto.LoginDTO;
+import com.example.salesmanagementsystem.dto.RegisterDTO;
 import com.example.salesmanagementsystem.exception.AppException;
+import com.example.salesmanagementsystem.exception.UserNotFoundException;
 import com.example.salesmanagementsystem.model.RefreshToken;
 import com.example.salesmanagementsystem.model.User;
 import com.example.salesmanagementsystem.repository.RefreshTokenRepository;
 import com.example.salesmanagementsystem.repository.UserRepository;
 import com.example.salesmanagementsystem.security.JwtTokenProvider;
-import com.example.salesmanagementsystem.service.AuthService;
+import com.example.salesmanagementsystem.service.UserService;
 import com.example.salesmanagementsystem.service.RefreshTokenService;
 import com.example.salesmanagementsystem.service.TokenBlacklist;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
@@ -38,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public String registerUser(RegisterDto registerDto) {
+    public String registerUser(RegisterDTO registerDto) {
         if(userRepository.existsByEmail(registerDto.getEmail())) {
             throw new AppException(HttpStatus.BAD_REQUEST, "Email already exists: " + registerDto.getEmail());
         }
@@ -60,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JWTAuthResponse LoginUser(LoginDto loginDto) {
+    public JWTAuthResponse LoginUser(LoginDTO loginDto) {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsername(),
@@ -95,5 +96,12 @@ public class AuthServiceImpl implements AuthService {
         } else {
             throw new AppException(HttpStatus.UNAUTHORIZED, "Authorization Header is missing or invalid.");
         }
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new UserNotFoundException("User with email: " + email + " Not Found",HttpStatus.BAD_REQUEST,"Contact Admin"));
     }
 }

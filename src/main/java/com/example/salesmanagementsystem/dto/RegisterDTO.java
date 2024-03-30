@@ -8,18 +8,18 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RegisterDto {
+public class RegisterDTO {
 
-    @NotEmpty
+    @NotEmpty(message = "Firstname may not be empty")
     private String firstName;
-    @NotEmpty
+    @NotEmpty(message = "Lastname may not be empty")
     private String lastName;
-    @NotEmpty
+    @NotEmpty(message = "Email may not be empty")
     @Email
     private String email;
-    @NotEmpty
+    @NotEmpty(message = "Username may not be empty")
     private String username;
-    @NotEmpty
+    @NotEmpty(message = "Password may not be empty")
     private String password;
     private Role role;
 }
