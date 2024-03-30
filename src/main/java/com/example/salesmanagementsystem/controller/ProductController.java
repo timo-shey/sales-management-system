@@ -17,10 +17,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "ProductController", description = "APIs for Creating, Viewing, Editing and Deleting Products.")
+@Tag(name = "ProductController", description = "APIs for Creating, Fetching, Updating and Deleting Products.")
 @RequestMapping("/api/v1/product")
 public class ProductController {
     private final ProductService productService;
+
     @Operation(summary = "REST API to Create a new product. Only ADMIN can access this API.", tags = "ProductController")
     @ApiResponse(responseCode = "201", description = "Http Status 201 CREATED")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -54,10 +55,10 @@ public class ProductController {
     }
 
     @Operation(summary = "REST API to delete a product. Only ADMIN can access this API.", tags = "ProductController")
-    @ApiResponse(responseCode = "200", description = "Http Status 200 OK")
+    @ApiResponse(responseCode = "204", description = "Http Status 204 NO CONTENT")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id) {
-        productService.deleteProduct(id);
+    public ResponseEntity<String> deleteProduct(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.NO_CONTENT);
     }
 }

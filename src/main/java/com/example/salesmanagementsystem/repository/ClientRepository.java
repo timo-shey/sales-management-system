@@ -1,13 +1,13 @@
 package com.example.salesmanagementsystem.repository;
 
-import com.example.salesmanagementsystem.model.User;
+import com.example.salesmanagementsystem.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+public interface ClientRepository extends JpaRepository<Client, Long> {
+    Optional<Client> findByUsername(String username);
     Boolean existsByEmail(String email);
     Boolean existsByUsername(String username);
-    Optional<User> findByEmail(String email);
+    Optional<Client> findByEmail(String email);
 }

@@ -1,6 +1,6 @@
 package com.example.salesmanagementsystem.config;
 
-import com.example.salesmanagementsystem.repository.UserRepository;
+import com.example.salesmanagementsystem.repository.ClientRepository;
 import com.example.salesmanagementsystem.security.CustomUserDetailService;
 import com.example.salesmanagementsystem.security.JwtAuthenticationEntryPoint;
 import com.example.salesmanagementsystem.security.JwtAuthenticationFilter;
@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
     private final String path = "/api/v1/auth";
     private final String[] AUTH_WHITELIST = {
         path + "/login",
@@ -71,7 +71,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new CustomUserDetailService(userRepository);
+        return new CustomUserDetailService(clientRepository);
     }
 
     @Bean

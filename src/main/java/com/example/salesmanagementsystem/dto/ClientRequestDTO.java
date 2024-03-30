@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RegisterDTO {
+public class ClientRequestDTO {
 
     @NotEmpty(message = "Firstname may not be empty")
     private String firstName;
@@ -19,6 +19,10 @@ public class RegisterDTO {
     private String email;
     @NotEmpty(message = "Username may not be empty")
     private String username;
+    @NotEmpty(message = "Mobile may not be empty")
+    private int mobile;
+    @NotEmpty(message = "Address may not be empty")
+    private String address;
     @NotEmpty(message = "Password may not be empty")
     private String password;
     private Role role;

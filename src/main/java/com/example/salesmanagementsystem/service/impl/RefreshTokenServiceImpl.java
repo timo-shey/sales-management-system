@@ -4,9 +4,9 @@ import com.example.salesmanagementsystem.dto.JWTAuthResponse;
 import com.example.salesmanagementsystem.dto.RefreshTokenRequestDto;
 import com.example.salesmanagementsystem.exception.AppException;
 import com.example.salesmanagementsystem.model.RefreshToken;
-import com.example.salesmanagementsystem.model.User;
+import com.example.salesmanagementsystem.model.Client;
 import com.example.salesmanagementsystem.repository.RefreshTokenRepository;
-import com.example.salesmanagementsystem.repository.UserRepository;
+import com.example.salesmanagementsystem.repository.ClientRepository;
 import com.example.salesmanagementsystem.security.JwtTokenProvider;
 import com.example.salesmanagementsystem.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +23,14 @@ import java.util.UUID;
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
     private final JwtTokenProvider jwtTokenProvider;
     @Override
     public RefreshToken createRefreshToken(String username) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
+        Client client = clientRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("Client does not exist"));
 
-        Optional<RefreshToken> existingTokenOptional = refreshTokenRepository.findByUser(user);
+        Optional<RefreshToken> existingTokenOptional = refreshTokenRepository.findByClient(client);
 
         RefreshToken refreshToken;
         if (existingTokenOptional.isPresent()) {
@@ -39,7 +39,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(600));
         } else {
             refreshToken = RefreshToken.builder()
-                .user(user)
+                .client(client)
                 .token(UUID.randomUUID().toString())
                 .expiryDate(LocalDateTime.now().plusSeconds(600))
                 .build();
@@ -67,7 +67,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public JWTAuthResponse refreshToken(RefreshTokenRequestDto refreshTokenRequestDto) {
         return findByToken(refreshTokenRequestDto.getToken())
             .map(this::verifyExpiration)
-            .map(RefreshToken::getUser)
+            .map(RefreshToken::getClient)
             .map(user -> {
                 String accessToken = jwtTokenProvider.generateToken(user.getUsername());
                 return JWTAuthResponse.builder()

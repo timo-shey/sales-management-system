@@ -15,7 +15,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "SMSystem", description = "A sales management system, which includes product management,\n"
-    + "client management, sales operations management, reporting, and user authentication features.", version = "v1", license = @License(name = "SMSystem")))
+    + "client management, sales operations management, reporting, and client authentication features.", version = "v1", license = @License(name = "SMSystem")))
 public class SwaggerConfig {
     // Access local: http://localhost:8083/swagger-ui/index.html
     @Bean

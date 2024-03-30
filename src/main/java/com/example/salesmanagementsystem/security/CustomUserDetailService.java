@@ -1,6 +1,6 @@
 package com.example.salesmanagementsystem.security;
 
-import com.example.salesmanagementsystem.repository.UserRepository;
+import com.example.salesmanagementsystem.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User does not exist with username: " + username));
+        return clientRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Client does not exist with username: " + username));
     }
 }
