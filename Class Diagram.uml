@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>955ac971-6188-4e0b-904e-e8bcdcbf9482</OriginalElement>
+  <nodes>
+    <node x="180.62" y="244.5">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.sales</node>
+    <node x="-42.94999999999999" y="244.5">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.refresh_token</node>
+    <node x="114.00000000000003" y="-156.0">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.clients</node>
+    <node x="385.62" y="207.0">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.products</node>
+    <node x="-95.0" y="-131.0">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.users</node>
+    <node x="358.675" y="545.5">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.sale_products</node>
+    <node x="185.55" y="495.0">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.transactions</node>
+    <node x="619.62" y="-156.0">955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.audit_log</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.sales" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.clients" relationship="REFERENCES">
+      <point x="-46.25" y="-80.5" />
+      <point x="226.87" y="186.0" />
+      <point x="186.5" y="186.0" />
+      <point x="186.5" y="176.0" />
+      <point x="208.5" y="176.0" />
+      <point x="0.0" y="155.5" />
+    </edge>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.refresh_token" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.clients" relationship="REFERENCES">
+      <point x="47.5" y="-80.5" />
+      <point x="99.55000000000001" y="186.0" />
+      <point x="186.5" y="186.0" />
+      <point x="186.5" y="176.0" />
+      <point x="208.5" y="176.0" />
+      <point x="0.0" y="155.5" />
+    </edge>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.refresh_token" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.users" relationship="REFERENCES">
+      <point x="-47.5" y="-80.5" />
+      <point x="4.550000000000011" y="186.0" />
+      <point x="47.05000000000001" y="186.0" />
+      <point x="47.05000000000001" y="176.0" />
+      <point x="-0.5" y="176.0" />
+      <point x="0.0" y="130.5" />
+    </edge>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.transactions" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.sales" relationship="REFERENCES">
+      <point x="0.0" y="-93.0" />
+      <point x="262.05" y="474.0" />
+      <point x="273.12" y="474.0" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.sale_products" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.products" relationship="REFERENCES">
+      <point x="36.75" y="-42.5" />
+      <point x="468.92499999999995" y="464.0" />
+      <point x="480.12" y="464.0" />
+      <point x="0.0" y="118.0" />
+    </edge>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.transactions" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.clients" relationship="REFERENCES">
+      <point x="-51.0" y="-93.0" />
+      <point x="211.05" y="474.0" />
+      <point x="170.12" y="474.0" />
+      <point x="170.12" y="186.0" />
+      <point x="186.5" y="186.0" />
+      <point x="186.5" y="176.0" />
+      <point x="208.5" y="176.0" />
+      <point x="0.0" y="155.5" />
+    </edge>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.sale_products" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.sales" relationship="REFERENCES">
+      <point x="-36.75" y="-42.5" />
+      <point x="395.425" y="474.0" />
+      <point x="273.12" y="474.0" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.transactions" target="955ac971-6188-4e0b-904e-e8bcdcbf9482.TABLE:SMSystem.public.products" relationship="REFERENCES">
+      <point x="51.0" y="-93.0" />
+      <point x="313.05" y="464.0" />
+      <point x="480.12" y="464.0" />
+      <point x="0.0" y="118.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.45274212368728123" showDependencies="false" x="356.0" y="262.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
