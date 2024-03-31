@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.List;
 @Builder
 public class SalesReport {
     private int totalSales;
-    private double totalRevenue;
+    private BigDecimal totalRevenue;
     private List<Product> topSellingProducts;
     private List<Client> topPerformingSellers;
 

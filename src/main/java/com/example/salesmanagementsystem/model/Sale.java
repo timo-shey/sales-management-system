@@ -32,4 +32,11 @@ public class Sale {
     private List<Transaction> transactions;
     @CreatedDate
     private LocalDateTime createdAt;
+    @ManyToMany
+    @JoinTable(
+        name = "sale_products",
+        joinColumns = @JoinColumn(name = "sale_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products;
 }

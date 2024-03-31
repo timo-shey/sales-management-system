@@ -33,6 +33,8 @@ public class Product implements Cloneable{
     private LocalDateTime updatedAt;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
+    @ManyToMany(mappedBy = "products")
+    private List<Sale> sales;
 
     @Override
     public Product clone() {

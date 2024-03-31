@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "SaleController", description = "APIs for Creating, Fetching and Editing Sales.")
-@RequestMapping("/api/v1/sales")
+@RequestMapping("/api/v1/sale")
 public class SaleController {
 
     private final SalesService salesService;
@@ -34,7 +34,6 @@ public class SaleController {
     @Operation(summary = "REST API to fetch all sales operation. Both ADMIN and USERS can access this API.", tags = "SaleController")
     @ApiResponse(responseCode = "200", description = "Http Status 200 OK")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
-
     @GetMapping
     public ResponseEntity<List<SalesResponseDTO>> getAllSales() {
         return ResponseEntity.ok(salesService.getAllSales());

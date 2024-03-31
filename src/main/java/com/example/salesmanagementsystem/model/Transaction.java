@@ -26,4 +26,7 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 }

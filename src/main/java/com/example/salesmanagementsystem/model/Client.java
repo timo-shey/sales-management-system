@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -47,6 +48,10 @@ public class Client implements UserDetails, Cloneable {
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+    private List<Sale> sales;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -93,4 +98,16 @@ public class Client implements UserDetails, Cloneable {
             throw new AssertionError();
         }
     }
+    public int getClientActivity() {
+        return transactions.size();
+    }
+
+    public double getTotalSpent() {
+        return transactions.stream()
+            .map(Transaction::getPrice)
+            .mapToDouble(BigDecimal::doubleValue) // Convert BigDecimal to double
+            .sum();
+    }
+
+
 }
