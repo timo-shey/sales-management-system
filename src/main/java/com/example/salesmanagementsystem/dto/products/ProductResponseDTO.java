@@ -1,14 +1,14 @@
 package com.example.salesmanagementsystem.dto.products;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductResponseDTO {
     private Long id;
     private String name;

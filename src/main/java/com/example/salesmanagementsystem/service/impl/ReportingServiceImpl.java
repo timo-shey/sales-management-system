@@ -1,6 +1,8 @@
 package com.example.salesmanagementsystem.service.impl;
 
+import com.example.salesmanagementsystem.dto.clients.ClientResponseDTO;
 import com.example.salesmanagementsystem.dto.reporting.ClientReport;
+import com.example.salesmanagementsystem.dto.reporting.DateRangeRequest;
 import com.example.salesmanagementsystem.dto.reporting.ProductReport;
 import com.example.salesmanagementsystem.dto.reporting.SalesReport;
 import com.example.salesmanagementsystem.model.Client;
@@ -12,6 +14,7 @@ import com.example.salesmanagementsystem.repository.ProductRepository;
 import com.example.salesmanagementsystem.repository.SaleRepository;
 import com.example.salesmanagementsystem.service.ReportingService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -30,10 +33,11 @@ public class ReportingServiceImpl implements ReportingService {
     private final SaleRepository saleRepository;
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
+    private final ModelMapper mapper;
 
     @Override
-    public SalesReport generateSalesReport(LocalDateTime startDate, LocalDateTime endDate) {
-        List<Sale> sales = saleRepository.findByCreatedAtBetween(startDate, endDate);
+    public SalesReport generateSalesReport(DateRangeRequest dateRangeRequest) {
+        List<Sale> sales = saleRepository.findByCreatedAtBetween(dateRangeRequest.getStartDate(), dateRangeRequest.getEndDate());
 
         int totalSales = sales.size();
         BigDecimal totalRevenue = sales.stream()
@@ -71,10 +75,12 @@ public class ReportingServiceImpl implements ReportingService {
 
         int totalClients = clients.size();
 
-        List<Client> topSpendingClients = clients.stream()
-            .sorted(Comparator.comparingDouble(Client::getTotalSpent).reversed())
+        List<ClientResponseDTO> topSpendingClients = clients.stream()
+            .sorted(Comparator.comparing(client -> client.getTotalSpent(), Comparator.reverseOrder()))
             .limit(5)
+            .map(client -> mapToClientResponseDTO(client)) // Assuming you have a method to map Client to ClientResponseDTO
             .collect(Collectors.toList());
+
 
         int totalClientActivity = calculateTotalClientActivity(clients);
 
@@ -147,5 +153,9 @@ public class ReportingServiceImpl implements ReportingService {
             .max(Map.Entry.comparingByValue())
             .map(Map.Entry::getKey)
             .orElse("Unknown");
+    }
+
+    private ClientResponseDTO mapToClientResponseDTO(Client client) {
+        return mapper.map(client, ClientResponseDTO.class);
     }
 }

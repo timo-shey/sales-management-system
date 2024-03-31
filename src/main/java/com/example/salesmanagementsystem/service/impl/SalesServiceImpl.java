@@ -3,17 +3,22 @@ package com.example.salesmanagementsystem.service.impl;
 import com.example.salesmanagementsystem.dto.sales.SalesRequestDTO;
 import com.example.salesmanagementsystem.dto.sales.SalesResponseDTO;
 import com.example.salesmanagementsystem.dto.sales.TransactionDTO;
+import com.example.salesmanagementsystem.exception.ClientNotFoundException;
 import com.example.salesmanagementsystem.exception.ResourceNotFoundException;
 import com.example.salesmanagementsystem.model.AuditLog;
+import com.example.salesmanagementsystem.model.Client;
 import com.example.salesmanagementsystem.model.Sale;
 import com.example.salesmanagementsystem.model.Transaction;
 import com.example.salesmanagementsystem.repository.AuditLogRepository;
+import com.example.salesmanagementsystem.repository.ClientRepository;
 import com.example.salesmanagementsystem.repository.SaleRepository;
 import com.example.salesmanagementsystem.service.SalesService;
+import com.example.salesmanagementsystem.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +33,25 @@ public class SalesServiceImpl implements SalesService {
     private final SaleRepository saleRepository;
     private final ModelMapper mapper;
     private final AuditLogRepository auditLogRepository;
+    private final UserUtil userUtil;
+    private final ClientRepository clientRepository;
 
     @Override
     @Transactional
     public SalesResponseDTO createSale(SalesRequestDTO saleDTO) {
+        String username = userUtil.getAuthenticatedUsername();
+
+        Client client = clientRepository.findByUsername(username).orElseThrow(
+            ()-> new ClientNotFoundException(HttpStatus.NOT_FOUND, "Client not found.")
+        );
+
         Sale sale = mapper.map(saleDTO, Sale.class);
+        sale.setClient(client);
         Sale savedSale = saleRepository.save(sale);
 
-        LOGGER.info(String.format("Sales Operation Created --> ID = %d, Client = %s, Seller = %s, Total = %f, Date = %s", sale.getId(),
-            sale.getClient().getUsername(), sale.getSeller().getUsername(), sale.getTotal(), sale.getCreatedAt().toString()));
-        logAuditTrail("Sales Operation Created", sale);
+        LOGGER.info(String.format("Sales Operation Created --> ID = %d, Client = %s, Seller = %s, Total = %f, Date = %s", savedSale.getId(),
+            savedSale.getClient().getUsername(), savedSale.getSeller().getUsername(), savedSale.getTotal(), savedSale.getCreatedAt().toString()));
+        logAuditTrail("Sales Operation Created", savedSale);
 
         return mapper.map(savedSale, SalesResponseDTO.class);
     }

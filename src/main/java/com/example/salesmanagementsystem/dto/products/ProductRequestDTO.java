@@ -1,6 +1,7 @@
 package com.example.salesmanagementsystem.dto.products;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +18,8 @@ public class ProductRequestDTO {
     private String description;
     @NotEmpty(message = "Category may not be empty")
     private String category;
-    @NotEmpty(message = "Quantity may not be empty")
+    @NotNull
     private int quantity;
-    @NotEmpty(message = "Price may not be empty")
+    @NotNull
     private BigDecimal price;
 }

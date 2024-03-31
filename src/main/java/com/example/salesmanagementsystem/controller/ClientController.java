@@ -37,9 +37,9 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getAllClients());
     }
 
-    @Operation(summary = "REST API to update a client. Only CLIENT can access this API.", tags = "ClientController")
+    @Operation(summary = "REST API to update a client. Both the CLIENT and ADMIN can access this API.", tags = "ClientController")
     @ApiResponse(responseCode = "200", description = "Http Status 200 OK")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
     @PutMapping
     ResponseEntity<ClientResponseDTO> updateClient(@RequestBody ClientRequestDTO client) {
         return ResponseEntity.ok(clientService.updateClient(client));

@@ -23,9 +23,9 @@ public class SaleController {
 
     private final SalesService salesService;
 
-    @Operation(summary = "REST API to Create a new sale. Only ADMIN can access this API.", tags = "SaleController")
+    @Operation(summary = "REST API to Create a new sale. Both ADMIN and USERS can access this API.", tags = "SaleController")
     @ApiResponse(responseCode = "201", description = "Http Status 201 CREATED")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping
     public ResponseEntity<SalesResponseDTO> createSale(@RequestBody SalesRequestDTO sale) {
         return new ResponseEntity<>(salesService.createSale(sale), HttpStatus.CREATED);
@@ -47,9 +47,9 @@ public class SaleController {
         return ResponseEntity.ok(salesService.getSalesById(id));
     }
 
-    @Operation(summary = "REST API to edit quantities and proces of the sale. Only ADMIN can access this API.", tags = "SaleController")
+    @Operation(summary = "REST API to edit quantities and proces of the sale. Both ADMIN and USERS can access this API.", tags = "SaleController")
     @ApiResponse(responseCode = "204", description = "Http Status 200 OK")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @PutMapping("/{saleId}/transactions")
     public ResponseEntity<SalesResponseDTO> editSaleTransactions(@PathVariable Long saleId, @RequestBody List<TransactionDTO> transactions) {
         return ResponseEntity.ok(salesService.editSaleTransactions(saleId, transactions));

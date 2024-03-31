@@ -3,6 +3,7 @@ package com.example.salesmanagementsystem.dto.clients;
 import com.example.salesmanagementsystem.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class ClientRequestDTO {
     private String email;
     @NotEmpty(message = "Username may not be empty")
     private String username;
-    @NotEmpty(message = "Mobile may not be empty")
+    @NotNull
     private int mobile;
     @NotEmpty(message = "Address may not be empty")
     private String address;

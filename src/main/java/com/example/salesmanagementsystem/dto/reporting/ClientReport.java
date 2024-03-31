@@ -1,6 +1,6 @@
 package com.example.salesmanagementsystem.dto.reporting;
 
-import com.example.salesmanagementsystem.model.Client;
+import com.example.salesmanagementsystem.dto.clients.ClientResponseDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class ClientReport {
     private int totalClients;
-    private List<Client> topSpendingClients;
+    private List<ClientResponseDTO> topSpendingClients;
     private int totalClientActivity;
     private String topClientLocation;
 }

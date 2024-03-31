@@ -1,0 +1,775 @@
+{
+	"info": {
+		"_postman_id": "05ff42ec-aad6-4d9a-a738-14c27255a3f8",
+		"name": "Sales Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24285366",
+		"_collection_link": "https://grey-astronaut-644129.postman.co/workspace/Timileyin~05eba7a5-7e3a-46ab-a4c9-3f41a46de0c3/collection/24285366-05ff42ec-aad6-4d9a-a738-14c27255a3f8?action=share&source=collection_link&creator=24285366"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Timileyin\",\n    \"lastName\": \"Adeleke\",\n    \"email\": \"test@example.com\",\n    \"username\": \"timoshey\",\n    \"address\": \"Lagos\",\n    \"mobile\": 1234567890,\n    \"password\": \"Password123\",\n    \"role\": \"ROLE_ADMIN\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/auth/register",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								},
+								"description": "## UserRegistration\n\nThis endpoint is used to register a user.\n\n### Request Body\n\n- `firstName` (string): The firstname of the user.\n- `lastName` (string): The lastname of the user.\n- `email` (string): The email of the user.\n- `username` (string): The username of the user.\n- `password` (string): The password of the user.\n- `role` (Role): The role of the user.\n    \n\n### Response\n\n- Status: 201 CREATED\n- Content-Type: application/json\n- (string): User Registered Successfully"
+							},
+							"response": []
+						},
+						{
+							"name": "Login User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"var bodyToken = responseJson.accessToken;",
+											"var bodyRefreshToken = responseJson.refreshToken;",
+											"",
+											"pm.collectionVariables.set(\"jwtToken\", bodyToken);",
+											"console.log(pm.collectionVariables.get(\"jwtToken\"));",
+											"pm.collectionVariables.set(\"refreshToken\", bodyRefreshToken);",
+											"console.log(pm.collectionVariables.get(\"refreshToken\"));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"timoshey\",\n    \"password\":\"Password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/auth/login",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								},
+								"description": "## Auth Login\n\nThis endpoint is used to authenticate a user and obtain access and refresh tokens.\n\n### Request Body\n\n- `username` (string): The username of the user.\n- `password` (string): The password of the user.\n    \n\n### Response\n\n- Status: 200 OK\n- Content-Type: application/json\n- `accessToken` (string): The access token for the authenticated user.\n- `tokenType` (string): The type of token.\n- `refreshToken` (string): The refresh token for the authenticated user."
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"var bodyToken = responseJson.accessToken;",
+											"var bodyRefreshToken = responseJson.refreshToken;",
+											"",
+											"pm.collectionVariables.set(\"jwtToken\", bodyToken);",
+											"console.log(pm.collectionVariables.get(\"jwtToken\"));",
+											"pm.collectionVariables.set(\"refreshToken\", bodyRefreshToken);",
+											"console.log(pm.collectionVariables.get(\"refreshToken\"));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"{{refreshToken}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/auth/refreshToken",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"refreshToken"
+									]
+								},
+								"description": "### Refresh Token\n\nThis endpoint is used to refresh the access token by providing the refresh token.\n\n#### Request Body\n\n- token (string, required): The refresh token.\n    \n\n#### Response\n\n- Status: 200\n- Content-Type: application/json\n- accessToken (string): The new access token.\n- tokenType (string): The type of token.\n- refreshToken (string): The new refresh token."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Secured",
+			"item": [
+				{
+					"name": "Reporting",
+					"item": [
+						{
+							"name": "Sales Report",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"startDate\": \"2024-01-01T00:00:00\",\n    \"endDate\": \"2024-03-31T23:59:59\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/reporting/sales_report",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reporting",
+										"sales_report"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Client Report",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/reporting/client_report",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reporting",
+										"client_report"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Report",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/reporting/product_report",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reporting",
+										"product_report"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Example Product\",\n    \"description\": \"This is an example product.\",\n    \"category\": \"Example Category\",\n    \"quantity\": 10,\n    \"price\": 20.99\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/product",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get A Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/product/1",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Products",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/product",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Updated Product Name\",\n    \"description\": \"This is the updated description.\",\n    \"category\": \"Updated Category\",\n    \"quantity\": 15,\n    \"price\": 25.99\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/product/1",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/product/1",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sales",
+					"item": [
+						{
+							"name": "Create Sale",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientId\": 2,\n    \"sellerId\": 1,\n    \"total\": 100.00,\n    \"transactions\": [\n        {\n            \"productId\": 789,\n            \"quantity\": 2,\n            \"price\": 25.00\n        },\n        {\n            \"productId\": 987,\n            \"quantity\": 1,\n            \"price\": 50.00\n        }\n    ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/sale",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"sale"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get A Sale",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/sale/1",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"sale",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Sales",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/sale",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"sale"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Sales Transaction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"productId\": 2,\n        \"quantity\": 3,\n        \"price\": 30.00\n    }\n]\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/sale/1/transactions",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"sale",
+										"1",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Client",
+					"item": [
+						{
+							"name": "Get A Client",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/client/1",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"client",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Clients",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/client",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"client"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Client",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"username\": \"johndoe\",\n    \"address\": \"123 Main St\",\n    \"mobile\": 1234567890\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostURL}}/api/v1/client",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"client"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete A Client",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{hostURL}}/api/v1/client/1",
+									"host": [
+										"{{hostURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"client",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Logout User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Refresh-Token",
+								"value": "{{refreshToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostURL}}/api/v1/logout",
+							"host": [
+								"{{hostURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logout"
+							]
+						},
+						"description": "This API endpoint makes an HTTP POST request to invalidate the access token of a user, thereby logging the user out of the application."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostURL",
+			"value": "http://localhost:8083",
+			"type": "string"
+		},
+		{
+			"key": "jwtToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
