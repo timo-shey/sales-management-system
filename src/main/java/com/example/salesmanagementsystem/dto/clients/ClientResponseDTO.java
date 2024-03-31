@@ -1,4 +1,4 @@
-package com.example.salesmanagementsystem.dto;
+package com.example.salesmanagementsystem.dto.clients;
 
 import lombok.Builder;
 import lombok.Getter;

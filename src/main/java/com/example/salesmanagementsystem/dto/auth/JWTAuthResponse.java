@@ -1,4 +1,4 @@
-package com.example.salesmanagementsystem.dto;
+package com.example.salesmanagementsystem.dto.auth;
 
 import lombok.Builder;
 import lombok.Data;

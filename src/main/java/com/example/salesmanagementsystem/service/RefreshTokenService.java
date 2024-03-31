@@ -1,7 +1,7 @@
 package com.example.salesmanagementsystem.service;
 
-import com.example.salesmanagementsystem.dto.JWTAuthResponse;
-import com.example.salesmanagementsystem.dto.RefreshTokenRequestDto;
+import com.example.salesmanagementsystem.dto.auth.JWTAuthResponse;
+import com.example.salesmanagementsystem.dto.auth.RefreshTokenRequestDto;
 import com.example.salesmanagementsystem.model.RefreshToken;
 
 import java.util.Optional;

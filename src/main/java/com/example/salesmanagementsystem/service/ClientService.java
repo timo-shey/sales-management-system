@@ -1,10 +1,9 @@
 package com.example.salesmanagementsystem.service;
 
-import com.example.salesmanagementsystem.dto.ClientResponseDTO;
-import com.example.salesmanagementsystem.dto.JWTAuthResponse;
-import com.example.salesmanagementsystem.dto.LoginDTO;
-import com.example.salesmanagementsystem.dto.ClientRequestDTO;
-import com.example.salesmanagementsystem.model.Client;
+import com.example.salesmanagementsystem.dto.clients.ClientResponseDTO;
+import com.example.salesmanagementsystem.dto.auth.JWTAuthResponse;
+import com.example.salesmanagementsystem.dto.auth.LoginDTO;
+import com.example.salesmanagementsystem.dto.clients.ClientRequestDTO;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;

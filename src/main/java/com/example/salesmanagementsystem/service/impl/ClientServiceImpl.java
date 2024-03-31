@@ -1,10 +1,12 @@
 package com.example.salesmanagementsystem.service.impl;
 
-import com.example.salesmanagementsystem.dto.*;
+import com.example.salesmanagementsystem.dto.auth.JWTAuthResponse;
+import com.example.salesmanagementsystem.dto.auth.LoginDTO;
+import com.example.salesmanagementsystem.dto.clients.ClientRequestDTO;
+import com.example.salesmanagementsystem.dto.clients.ClientResponseDTO;
 import com.example.salesmanagementsystem.exception.AppException;
 import com.example.salesmanagementsystem.exception.ClientNotFoundException;
 import com.example.salesmanagementsystem.model.Client;
-import com.example.salesmanagementsystem.model.Product;
 import com.example.salesmanagementsystem.model.RefreshToken;
 import com.example.salesmanagementsystem.repository.RefreshTokenRepository;
 import com.example.salesmanagementsystem.repository.ClientRepository;

@@ -1,6 +1,5 @@
-package com.example.salesmanagementsystem.dto;
+package com.example.salesmanagementsystem.dto.products;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
 package com.example.salesmanagementsystem.service.impl;
 
-import com.example.salesmanagementsystem.dto.ProductRequestDTO;
-import com.example.salesmanagementsystem.dto.ProductResponseDTO;
+import com.example.salesmanagementsystem.dto.products.ProductRequestDTO;
+import com.example.salesmanagementsystem.dto.products.ProductResponseDTO;
 import com.example.salesmanagementsystem.exception.ResourceNotFoundException;
 import com.example.salesmanagementsystem.model.Product;
 import com.example.salesmanagementsystem.repository.ProductRepository;

@@ -1,7 +1,7 @@
 package com.example.salesmanagementsystem.controller;
 
-import com.example.salesmanagementsystem.dto.ProductRequestDTO;
-import com.example.salesmanagementsystem.dto.ProductResponseDTO;
+import com.example.salesmanagementsystem.dto.products.ProductRequestDTO;
+import com.example.salesmanagementsystem.dto.products.ProductResponseDTO;
 import com.example.salesmanagementsystem.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

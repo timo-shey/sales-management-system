@@ -1,6 +1,6 @@
 package com.example.salesmanagementsystem.exception;
 
-import com.example.salesmanagementsystem.dto.ErrorDetails;
+import com.example.salesmanagementsystem.dto.auth.ErrorDetails;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

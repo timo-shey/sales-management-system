@@ -1,9 +1,9 @@
 package com.example.salesmanagementsystem.controller;
 
-import com.example.salesmanagementsystem.dto.JWTAuthResponse;
-import com.example.salesmanagementsystem.dto.LoginDTO;
-import com.example.salesmanagementsystem.dto.RefreshTokenRequestDto;
-import com.example.salesmanagementsystem.dto.ClientRequestDTO;
+import com.example.salesmanagementsystem.dto.auth.JWTAuthResponse;
+import com.example.salesmanagementsystem.dto.auth.LoginDTO;
+import com.example.salesmanagementsystem.dto.auth.RefreshTokenRequestDto;
+import com.example.salesmanagementsystem.dto.clients.ClientRequestDTO;
 import com.example.salesmanagementsystem.service.ClientService;
 import com.example.salesmanagementsystem.service.RefreshTokenService;
 import io.swagger.v3.oas.annotations.Operation;

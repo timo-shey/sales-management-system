@@ -1,7 +1,7 @@
 package com.example.salesmanagementsystem.service;
 
-import com.example.salesmanagementsystem.dto.ProductRequestDTO;
-import com.example.salesmanagementsystem.dto.ProductResponseDTO;
+import com.example.salesmanagementsystem.dto.products.ProductRequestDTO;
+import com.example.salesmanagementsystem.dto.products.ProductResponseDTO;
 
 import java.util.List;
 

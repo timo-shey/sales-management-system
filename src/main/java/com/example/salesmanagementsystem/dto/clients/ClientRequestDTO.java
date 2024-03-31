@@ -1,4 +1,4 @@
-package com.example.salesmanagementsystem.dto;
+package com.example.salesmanagementsystem.dto.clients;
 
 import com.example.salesmanagementsystem.enums.Role;
 import jakarta.validation.constraints.Email;
