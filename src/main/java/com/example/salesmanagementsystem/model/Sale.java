@@ -3,7 +3,9 @@ package com.example.salesmanagementsystem.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "sales")
+@EntityListeners(AuditingEntityListener.class)
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,7 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "seller_id")
     private Client seller;
-    private double total;
+    private BigDecimal total;
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
     @CreatedDate

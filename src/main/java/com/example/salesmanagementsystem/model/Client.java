@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "clients")
-public class Client implements UserDetails {
+@EntityListeners(AuditingEntityListener.class)
+public class Client implements UserDetails, Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,5 +74,23 @@ public class Client implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Client clone() {
+        try {
+            Client clone = (Client) super.clone();
+            clone.setId(this.getId());
+            clone.setFirstName(this.getFirstName());
+            clone.setLastName(this.getLastName());
+            clone.setEmail(this.getEmail());
+            clone.setUsername(this.getUsername());
+            clone.setMobile(this.getMobile());
+            clone.setAddress(this.getAddress());
+            clone.setRole(this.getRole());
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

@@ -1,10 +1,10 @@
 package com.example.salesmanagementsystem.repository;
 
-import com.example.salesmanagementsystem.model.Sale;
+import com.example.salesmanagementsystem.model.AuditLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SaleRepository extends JpaRepository<Sale, Long> {
+public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
 
 }

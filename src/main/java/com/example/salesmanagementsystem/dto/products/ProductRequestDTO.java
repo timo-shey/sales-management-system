@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Builder
@@ -18,5 +20,5 @@ public class ProductRequestDTO {
     @NotEmpty(message = "Quantity may not be empty")
     private int quantity;
     @NotEmpty(message = "Price may not be empty")
-    private double price;
+    private BigDecimal price;
 }
